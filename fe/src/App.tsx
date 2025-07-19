@@ -1,14 +1,17 @@
-import './App.css'
-import Header from './components/Header'
-import Home from './components/Home'
+import { BrowserRouter, Route, Routes } from "react-router";
+import "./App.css";
+import LoginPage from "./pages/LoginPage";
+import TodoListPage from "./pages/TodoListPage";
 
 function App() {
   return (
-    <>
-      <Header/>
-      <Home/>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoListPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
