@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import type { TodoItem } from "../types/todo.type";
 import TodoCard from "./TodoCard";
 
 function TodoList() {
-  const listItems = items.map((item) => (
+  const [taskList, setTaskList] = useState<TodoItem[]>([]);
+
+  useEffect(() => {
+    setTaskList(items);
+  
+    return () => {
+      // second
+    }
+  }, [])
+  
+
+  const listItems = taskList.map((item) => (
     <li key={item.id}>
       <TodoCard item={item} />
     </li>
