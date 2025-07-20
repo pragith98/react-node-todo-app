@@ -1,11 +1,11 @@
 import React from "react";
 
 interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "danger" | "outlined";
-  disabled?: boolean;
+  children:   React.ReactNode;
+  onClick?:   (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?:      "button" | "submit" | "reset";
+  variant?:   "primary" | "secondary" | "danger" | "outlined";
+  disabled?:  boolean;
 }
 
 function Button({
@@ -56,7 +56,6 @@ const buttonStyle = `
   rounded-md 
   px-3 
   py-1.5 
-  text-sm/6 
   font-semibold 
   shadow-xs 
   focus-visible:outline-2 

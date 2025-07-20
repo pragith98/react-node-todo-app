@@ -1,7 +1,12 @@
+import Header from "../components/Header";
+import TodoList from "../components/TodoList";
+
 export default function TodoListPage() {
   return (
     <>
-      <h1 className="text-3xl" >Home</h1>
+      <Header />
+
+      <TodoList />
     </>
   );
 }
