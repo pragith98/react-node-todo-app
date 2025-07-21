@@ -15,7 +15,7 @@ function TodoForm() {
 
     const todoItem: TodoItemToCreate = {
       task,
-      userId: 2,
+      userId: ''
     };
 
     dispatch(addTodo(todoItem)).finally(() => setTask(""));
