@@ -3,10 +3,10 @@ import type { TodoItem, TodoItemToCreate } from "../types/todo.type";
 
 export const fetchTodos = async (): Promise<TodoItem[]> => {
   return [
-    { id: 1, userId: 1, task: "task 1" },
-    { id: 2, userId: 2, task: "task 2" },
-    { id: 3, userId: 3, task: "task 3" },
-    { id: 4, userId: 4, task: "task 4" },
+    { id: 1, userId: 1, task: "task 1", isDone: false },
+    { id: 2, userId: 2, task: "task 2", isDone: true },
+    { id: 3, userId: 3, task: "task 3", isDone: false },
+    { id: 4, userId: 4, task: "task 4", isDone: true },
   ];
 }
 
@@ -15,10 +15,15 @@ export const createTodo = async (
 ): Promise<TodoItem> => {
   return {
     ...todoItem,
-    id: Math.floor(Math.random() * 1000000)
+    id: Math.floor(Math.random() * 1000000),
+    isDone: false
   };
 }
 
 export const deleteTodo = (id: number): number => {
+  return id;
+}
+
+export const toggleStatusToDo = (id: number): number => {
   return id;
 }

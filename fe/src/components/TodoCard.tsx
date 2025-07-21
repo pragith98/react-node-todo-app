@@ -3,7 +3,7 @@ import type { TodoItem } from "../types/todo.type";
 import Button from "./Button";
 import { FaTrashAlt, FaCheckCircle, FaTimes } from "react-icons/fa";
 import type { AppDispatch } from "../store/store";
-import { removeTodo } from "../store/todo.slice";
+import { removeTodo, toggleTodo } from "../store/todo.slice";
 
 interface TodoCardProps {
   item: TodoItem;
@@ -16,26 +16,59 @@ function TodoCard({ item }: TodoCardProps) {
     dispatch(removeTodo(id));
   };
 
+  const onClickToggle = (id: number) => {
+    dispatch(toggleTodo(id));
+  };
+
+  const toggleStatusButton = (item: TodoItem) => {
+    if (item.isDone) {
+      return (
+        <Button variant="secondary" onClick={() => onClickToggle(item.id)}>
+          <FaTimes />
+        </Button>
+      );
+    }
+
+    return (
+      <Button variant="secondary" onClick={() => onClickToggle(item.id)}>
+        <FaCheckCircle />
+      </Button>
+    );
+  };
+
   return (
     <div className="flex my-3">
       <div className="w-20 sm:w-40 md:w-60 flex flex-col justify-center">
-        <p className="text-sm/6 font-semibold text-gray-900">{item.task}</p>
+        <p
+          className={
+            item.isDone ? taskNameCompletedStyle : taskNameNotCompletedStyle
+          }
+        >
+          {item.task}
+        </p>
       </div>
       <div className="flex flex-row gap-5">
         <Button variant="danger" onClick={() => onClickDelete(item.id)}>
           <FaTrashAlt />
         </Button>
 
-        <Button variant="secondary">
-          <FaCheckCircle />
-        </Button>
-
-        <Button variant="secondary">
-          <FaTimes />
-        </Button>
+        {toggleStatusButton(item)}
       </div>
     </div>
   );
 }
+
+const taskNameNotCompletedStyle = `
+  text-sm/6 
+  font-semibold 
+  text-gray-900
+`;
+
+const taskNameCompletedStyle = `
+  text-sm/6 
+  font-semibold 
+  text-gray-500
+  line-through
+`;
 
 export default TodoCard;
