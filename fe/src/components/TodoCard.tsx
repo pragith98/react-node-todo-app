@@ -12,25 +12,25 @@ interface TodoCardProps {
 function TodoCard({ item }: TodoCardProps) {
   const dispatch = useDispatch<AppDispatch>();
 
-  const onClickDelete = (id: number) => {
+  const onClickDelete = (id: string) => {
     dispatch(removeTodo(id));
   };
 
-  const onClickToggle = (id: number) => {
-    dispatch(toggleTodo(id));
+  const onClickToggle = (todoItem: TodoItem) => {
+    dispatch(toggleTodo(todoItem));
   };
 
   const toggleStatusButton = (item: TodoItem) => {
     if (item.isDone) {
       return (
-        <Button variant="secondary" onClick={() => onClickToggle(item.id)}>
+        <Button variant="secondary" onClick={() => onClickToggle(item)}>
           <FaTimes />
         </Button>
       );
     }
 
     return (
-      <Button variant="secondary" onClick={() => onClickToggle(item.id)}>
+      <Button variant="secondary" onClick={() => onClickToggle(item)}>
         <FaCheckCircle />
       </Button>
     );

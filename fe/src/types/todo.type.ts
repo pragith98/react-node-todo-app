@@ -1,6 +1,6 @@
 export interface TodoItem {
-  id:     number;
-  userId: number;
+  id:     string;
+  userId: string;
   task:   string;
   isDone: boolean;
 }
