@@ -18,3 +18,7 @@ export const createTodo = async (
     id: Math.floor(Math.random() * 1000000)
   };
 }
+
+export const deleteTodo = (id: number): number => {
+  return id;
+}

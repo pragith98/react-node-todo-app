@@ -1,19 +1,28 @@
+import { useDispatch } from "react-redux";
 import type { TodoItem } from "../types/todo.type";
 import Button from "./Button";
 import { FaTrashAlt, FaCheckCircle, FaTimes } from "react-icons/fa";
+import type { AppDispatch } from "../store/store";
+import { removeTodo } from "../store/todo.slice";
 
 interface TodoCardProps {
   item: TodoItem;
 }
 
 function TodoCard({ item }: TodoCardProps) {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const onClickDelete = (id: number) => {
+    dispatch(removeTodo(id));
+  };
+
   return (
     <div className="flex my-3">
       <div className="w-20 sm:w-40 md:w-60 flex flex-col justify-center">
         <p className="text-sm/6 font-semibold text-gray-900">{item.task}</p>
       </div>
       <div className="flex flex-row gap-5">
-        <Button variant="danger">
+        <Button variant="danger" onClick={() => onClickDelete(item.id)}>
           <FaTrashAlt />
         </Button>
 

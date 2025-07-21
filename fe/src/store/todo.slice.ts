@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { TodoItem } from "../types/todo.type";
-import { fetchTodos, createTodo } from "../services/todo.service";
+import { fetchTodos, createTodo, deleteTodo } from "../services/todo.service";
 
 interface TodoState {
-  items:    TodoItem[];
-  loading:  boolean;
-  error:    string | null;
+  items: TodoItem[];
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: TodoState = {
@@ -15,7 +15,8 @@ const initialState: TodoState = {
 };
 
 export const getTodos = createAsyncThunk('todos/fetch', fetchTodos);
-export const addTodo = createAsyncThunk('todos/create', createTodo)
+export const addTodo = createAsyncThunk('todos/create', createTodo);
+export const removeTodo = createAsyncThunk('todos/delete', deleteTodo);
 
 const todoSlice = createSlice({
   name: 'todos',
@@ -40,6 +41,11 @@ const todoSlice = createSlice({
       // Create
       .addCase(addTodo.fulfilled, (state, action) => {
         state.items.push(action.payload);
+      })
+
+      // Delete
+      .addCase(removeTodo.fulfilled, (state, action) => {
+        state.items = state.items.filter(item => item.id !== action.payload);
       })
   }
 });
