@@ -1,12 +1,24 @@
 import { FaPlus } from "react-icons/fa";
 import Button from "./Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/store";
+import { addTodo } from "../store/todo.slice";
+import type { TodoItemToCreate } from "../types/todo.type";
 
 function TodoForm() {
+  const dispatch = useDispatch<AppDispatch>();
   const [task, setTask] = useState("");
 
   const onClickSave = () => {
-    console.debug(task);
+    if (task.length < 1) return;
+
+    const todoItem: TodoItemToCreate = {
+      task,
+      userId: 2,
+    };
+
+    dispatch(addTodo(todoItem)).finally(() => setTask(""));
   };
 
   return (
