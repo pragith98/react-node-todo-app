@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react";
-import type { TodoItem } from "../types/todo.type";
+import { useEffect } from "react";
 import TodoCard from "./TodoCard";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
+import { getTodos } from "../store/todo.slice";
 
 function TodoList() {
-  const [taskList, setTaskList] = useState<TodoItem[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const { items, loading, error } = useSelector(
+    (state: RootState) => state.todos
+  );
 
   useEffect(() => {
-    setTaskList(items);
-  
-    return () => {
-      // second
-    }
-  }, [])
-  
+    dispatch(getTodos());
+  }, [dispatch]);
 
-  const listItems = taskList.map((item) => (
+  const listItems = items.map((item) => (
     <li key={item.id}>
       <TodoCard item={item} />
     </li>
   ));
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="flex justify-center">
@@ -28,12 +31,5 @@ function TodoList() {
     </div>
   );
 }
-
-const items: TodoItem[] = [
-  { id: 1, userId: 1, task: "task 1" },
-  { id: 2, userId: 2, task: "task 2" },
-  { id: 3, userId: 3, task: "task 3" },
-  { id: 4, userId: 4, task: "task 4" },
-];
 
 export default TodoList;
