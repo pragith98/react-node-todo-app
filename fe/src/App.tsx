@@ -26,7 +26,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/react-node-todo-app">
       <Routes>
         <Route path="/" element={isAuth ? <TodoListPage /> : <AuthPage />} />
         <Route
